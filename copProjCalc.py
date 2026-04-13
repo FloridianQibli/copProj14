@@ -30,7 +30,7 @@ firstNum = find_val_num("Enter the first number: ")
 while True:
     secondNum = find_val_num("Enter the second number: ")
 
-    if (operator == "/" or operator) == "%" and secondNum == 0:
+    if (operator == "/" or operator == "%") and secondNum == 0:
         print("You cannot use this operator with zero being you second number. Try again.")
     else:
         print("test complete")
