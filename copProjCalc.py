@@ -8,13 +8,6 @@ from pydoc import text
 print("\n\nWelcome to the Python calculator!!!")
 validOp = ["+", "-", "/", "*", "**", "%"]
 
-while True:
-    operator = input("\nEnter your operator (+, -, /, *, **(exponent), %(remainder of / of two numbers)): ")
-    if operator in validOp:
-        break
-    else:
-        print("Invalid operator. Try again.")
-
 
 def find_val_num(num_prompt):
     while True:
@@ -25,30 +18,67 @@ def find_val_num(num_prompt):
             print("Invalid input. Try again.")
 
 
+progRunning = True
+
+while progRunning:  # outer loop (whole program)
+
+    firstNum = find_val_num("Enter the first number: ")
+
+    while True:  # inner loop (math loop)
+        skipOp = False
+
+        while True:
+            operator = input("\nEnter your operator (+, -, /, *, **(exponent), %(remainder of / of two numbers)): ")
+            if operator in validOp:
+                break
+            else:
+                print("Invalid operator. Try again.")
+
+        while True:
+            secondNum = find_val_num("Enter the second number: ")
+
+            if (operator == "/" or operator == "%") and secondNum == 0:
+                result = "Error"
+                skipOp = True
+                break
+            else:
+                break
+
+        if not skipOp:
+            if operator == '+':
+                result = firstNum + secondNum
+            elif operator == '-':
+                result = firstNum - secondNum
+            elif operator == '*':
+                result = firstNum * secondNum
+            elif operator == '/':
+                result = firstNum / secondNum
+            elif operator == '**':
+                result = firstNum ** secondNum
+            elif operator == '%':
+                result = firstNum % secondNum
+
+        print(f"Result: {firstNum} {operator} {secondNum} = {result}\n\n")
+
+        while True:
+            if skipOp:
+                action = (input("\nType \"n\" if you would like to start over, or \"q\" to quit: ")).lower()
+
+            else:
+                action = (input(f"\nType \"y\" to continue with {result}, \"n\" if you would like to start over, or"
+                                f" \"q\" to quit: ")).lower()
+            if action in ["y", "n", "q"]:
+                break
+            else:
+                print("Invalid input. Try again.")
 
 
-firstNum = find_val_num("Enter the first number: ")
-
-while True:
-    secondNum = find_val_num("Enter the second number: ")
-
-    if (operator == "/" or operator == "%") and secondNum == 0:
-        result = "Error"
-        continue
-    else:
-        break
-
-if operator == '+':
-    result = firstNum + secondNum
-elif operator == '-':
-    result = firstNum - secondNum
-elif operator == '*':
-    result = firstNum * secondNum
-elif operator == '/':
-    result = firstNum / secondNum
-elif operator == '**':
-    result = firstNum ** secondNum
-elif operator == '%':
-    result = firstNum % secondNum
-
-print(f"Result: {firstNum} {operator} {secondNum} = {result}")
+        if action == "y" and not skipOp:
+            firstNum = result
+            break
+        elif action == "n":
+            break
+        elif action == "q":
+            print("Goodbye!")
+            progRunning = False
+            break
