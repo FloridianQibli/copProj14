@@ -25,31 +25,30 @@ def find_val_num(num_prompt):
             print("Invalid input. Try again.")
 
 
+
+
 firstNum = find_val_num("Enter the first number: ")
 
 while True:
     secondNum = find_val_num("Enter the second number: ")
 
     if (operator == "/" or operator == "%") and secondNum == 0:
-        print("You cannot use this operator with zero being you second number. Try again.")
+        result = "Error"
+        continue
     else:
-        print("test complete")
         break
 
+if operator == '+':
+    result = firstNum + secondNum
+elif operator == '-':
+    result = firstNum - secondNum
+elif operator == '*':
+    result = firstNum * secondNum
+elif operator == '/':
+    result = firstNum / secondNum
+elif operator == '**':
+    result = firstNum ** secondNum
+elif operator == '%':
+    result = firstNum % secondNum
 
-# at the end of your calculation logic
-choice = input("\nType 'clear' to reset or press Enter to continue: ").lower()
-if choice == "clear":
-    clear_screen()
-
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
-while True: # Main app loop
-# 1. get first number
-# 2. get operator
-# 3. get second number
-# 4. show result
-reset = input("Type 'c' to clear screen and restart, or 'q' to quit: ")
-if reset.lower() == "c":
-    clear_screen()
-# continue # restarts the loop from the top
+print(f"Result: {firstNum} {operator} {secondNum} = {result}")
